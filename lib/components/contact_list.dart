@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ourchat/components/mobile_chat_screen.dart';
 import 'package:ourchat/utils/colors.dart';
 import 'package:ourchat/utils/info.dart';
 
@@ -21,7 +22,13 @@ class ContactList extends StatelessWidget {
         },
         itemBuilder: (context, index) {
           return InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MobileChatScreen(),
+                  ));
+            },
             child: ListTile(
               leading: CircleAvatar(
                 backgroundImage:

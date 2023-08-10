@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ourchat/components/chat_list.dart';
+import 'package:ourchat/components/chat_nav.dart';
 import 'package:ourchat/components/contact_list.dart';
+import 'package:ourchat/components/web_chat_appbar.dart';
+import 'package:ourchat/components/web_message_input_box.dart';
 import 'package:ourchat/components/web_search_bar.dart';
 import 'package:ourchat/components/web_profile_bar.dart';
 
@@ -28,9 +32,12 @@ class WebScreenLayout extends StatelessWidget {
                   image: AssetImage("assets/images/chatScreenBackground.png"),
                   fit: BoxFit.cover)),
           child: const Column(children: [
-            //web chat bar
-            //chat list
-            //message input box
+            WebChatAppBar(),
+            ChatNav(
+              widthScale: 0.75,
+            ),
+            Expanded(child: ChatList()),
+            WebMessageInputBox()
           ]),
         )
       ],
