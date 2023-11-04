@@ -6,28 +6,19 @@ class MobileMessageInputBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.09,
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.all(10.0),
-      decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: dividerColor)),
-        color: chatBarMessage,
-      ),
-      child: const TextField(
-          decoration: InputDecoration(
-        fillColor: searchBarColor,
+    return TextField(
+      decoration: InputDecoration(
         filled: true,
-        hintText: "Type a Message",
-        prefixIcon: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+        fillColor: mobileChatBoxColor,
+        prefixIcon: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: Icon(
-            Icons.emoji_emotions_outlined,
+            Icons.emoji_emotions,
             color: Colors.grey,
           ),
         ),
-        suffixIcon: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+        suffixIcon: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -40,24 +31,22 @@ class MobileMessageInputBox extends StatelessWidget {
                 color: Colors.grey,
               ),
               Icon(
-                Icons.money_rounded,
+                Icons.money,
                 color: Colors.grey,
               ),
             ],
           ),
         ),
+        hintText: 'Type a message!',
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            borderSide: BorderSide(width: 0, style: BorderStyle.none)),
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            borderSide: BorderSide(
-                width: 0, style: BorderStyle.none, color: Colors.blue)),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            borderSide: BorderSide(width: 0, color: Colors.green)),
-        contentPadding: EdgeInsets.only(left: 10.0),
-      )),
+          borderRadius: BorderRadius.circular(20.0),
+          borderSide: const BorderSide(
+            width: 0,
+            style: BorderStyle.none,
+          ),
+        ),
+        contentPadding: const EdgeInsets.all(10),
+      ),
     );
   }
 }

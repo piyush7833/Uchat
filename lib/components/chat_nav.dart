@@ -14,19 +14,39 @@ class ChatNav extends StatelessWidget {
         decoration: const BoxDecoration(
           color: Colors.black26,
         ),
-        child: const TabBar(
+        child: TabBar(
             indicatorColor: tabColor,
             indicatorWeight: 4,
             labelColor: tabColor,
             unselectedLabelColor: Colors.grey,
-            labelStyle: TextStyle(
+            labelStyle: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
             tabs: [
-              Text("Chats"),
-              Text("Photos"),
-              Text("Videos"),
-              Text("Reminders"),
+              Container(
+                  height: double.maxFinite,
+                  alignment: Alignment.center,
+                  child: const Text(
+                    "Chats",
+                  )),
+              Container(
+                  height: double.maxFinite,
+                  alignment: Alignment.center,
+                  child: const Text(
+                    "Photos",
+                  )),
+              Container(
+                  height: double.maxFinite,
+                  alignment: Alignment.center,
+                  child: const Text(
+                    "Videos",
+                  )),
+              Container(
+                  height: double.maxFinite,
+                  alignment: Alignment.center,
+                  child: const Text(
+                    "Reminders",
+                  )),
             ]),
       ),
     );

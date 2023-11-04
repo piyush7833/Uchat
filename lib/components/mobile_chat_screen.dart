@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ourchat/components/chat_list.dart';
 import 'package:ourchat/components/chat_nav.dart';
+import 'package:ourchat/components/mobile_message_input_box.dart';
 import 'package:ourchat/utils/info.dart';
+import 'package:ourchat/utils/colors.dart';
 
 class MobileChatScreen extends StatelessWidget {
   const MobileChatScreen({super.key});
@@ -10,13 +12,18 @@ class MobileChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // leading: CircleAvatar(
-        //   backgroundImage: NetworkImage(
-        //     info[0]['profilePic'].toString(),
-        //   ),
-        //   maxRadius: 10,
-        // ),
-
+        leading: Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: NetworkImage(
+                info[0]['profilePic'].toString(),
+              ),
+              maxRadius: 15,
+            ),
+          ],
+        ),
+        leadingWidth: 35.0,
+        backgroundColor: appBarColor,
         title: Text(info[0]['name'].toString()),
         centerTitle: false,
         actions: [
@@ -37,13 +44,15 @@ class MobileChatScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: const Column(children: [
-        ChatNav(
-          widthScale: 1,
-        ),
-        Expanded(child: ChatList()),
-        MobileChatScreen()
-      ]),
+      body: const Column(
+        children: [
+          ChatNav(widthScale: 1),
+          Expanded(
+            child: ChatList(),
+          ),
+          MobileMessageInputBox(),
+        ],
+      ),
     );
   }
 }
