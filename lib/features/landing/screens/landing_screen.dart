@@ -14,7 +14,7 @@ class LandingScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
         body: SafeArea(
-            child: Container(
+            child: SizedBox(
       width: double.infinity,
       height: double.infinity,
       child: Column(
@@ -24,7 +24,7 @@ class LandingScreen extends StatelessWidget {
             height: 50,
           ),
           const Text(
-            "Welcome to Our Chat",
+            "Welcome to ConvoSync",
             style: TextStyle(fontSize: 33, fontWeight: FontWeight.w300),
           ),
           SizedBox(height: size.height / 9),

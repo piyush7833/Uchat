@@ -72,9 +72,12 @@ class AuthRepository {
       String photoUrl =
           "https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small/default-avatar-profile-icon-of-social-media-user-vector.jpg";
       if (profilePic != null) {
-        photoUrl = await ref
-            .read(commonFirebaseStorageProvider)
-            .storeFileToFirebase('profilePic/$uid/', profilePic);
+        photoUrl =
+            await ref.read(commonFirebaseStorageProvider).storeFileToFirebase(
+                  'profilePic/',
+                  profilePic,
+                );
+        print(photoUrl);
       }
       var user = UserModel(
           name: name,

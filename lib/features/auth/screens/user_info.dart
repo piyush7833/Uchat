@@ -6,6 +6,8 @@ import 'package:ourchat/components/partials/repositories/common_firebase_storage
 import 'package:ourchat/components/partials/utils.dart';
 import 'package:ourchat/features/auth/controller/auth_controller.dart';
 import 'package:ourchat/utils/colors.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class UserInformation extends ConsumerStatefulWidget {
   static const String routeName = '/userInfo';
@@ -20,14 +22,24 @@ class _UserInformationState extends ConsumerState<UserInformation> {
   File? selectedImage;
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     nameController.dispose();
   }
 
   void selectImage() async {
-    selectedImage = await pickImageFromGallery(context);
-    setState(() {});
+    final permissionStatus = await Permission.camera.request();
+    if (permissionStatus.isGranted) {
+      final imagePicker = ImagePicker();
+      final pickedFile =
+          await imagePicker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        selectedImage = File(pickedFile.path);
+        setState(() {});
+      }
+    } else {
+      // Handle the case where the user denied camera access.
+      // You can show a dialog or a message to inform the user.
+    }
   }
 
   void storeUserData() async {
@@ -48,53 +60,54 @@ class _UserInformationState extends ConsumerState<UserInformation> {
         centerTitle: true,
       ),
       body: SafeArea(
-          child: Center(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                selectedImage == null
-                    ? const CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            "https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small/default-avatar-profile-icon-of-social-media-user-vector.jpg"),
-                        backgroundColor: greyColor,
-                        radius: 64,
-                      )
-                    : CircleAvatar(
-                        backgroundImage: FileImage(selectedImage!),
-                        backgroundColor: blueColor,
-                        radius: 64,
-                      ),
-                Positioned(
-                  bottom: -10,
-                  left: 80,
-                  child: IconButton(
-                      onPressed: selectImage,
-                      icon: const Icon(
-                        Icons.add_a_photo,
-                        color: blueColor,
-                      )),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Container(
-                  width: size.width * 0.85,
-                  padding: const EdgeInsets.all(20.0),
-                  child: TextField(
-                    controller: nameController,
-                    decoration:
-                        const InputDecoration(hintText: "Enter your name"),
+        child: Center(
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  selectedImage == null
+                      ? const CircleAvatar(
+                          backgroundImage: NetworkImage(
+                              "https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small/default-avatar-profile-icon-of-social-media-user-vector.jpg"),
+                          backgroundColor: greyColor,
+                          radius: 64,
+                        )
+                      : CircleAvatar(
+                          backgroundImage: FileImage(selectedImage!),
+                          backgroundColor: blueColor,
+                          radius: 64,
+                        ),
+                  Positioned(
+                    bottom: -10,
+                    left: 80,
+                    child: IconButton(
+                        onPressed: selectImage,
+                        icon: const Icon(
+                          Icons.add_a_photo,
+                          color: blueColor,
+                        )),
                   ),
-                ),
-                IconButton(
-                    onPressed: storeUserData, icon: const Icon(Icons.done))
-              ],
-            )
-          ],
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: size.width * 0.85,
+                    padding: const EdgeInsets.all(20.0),
+                    child: TextField(
+                      controller: nameController,
+                      decoration:
+                          const InputDecoration(hintText: "Enter your name"),
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: storeUserData, icon: const Icon(Icons.done))
+                ],
+              )
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }
